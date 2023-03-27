@@ -3,7 +3,7 @@
 Just like `alert/confirm/prompt(...)` but with custom styling and async support.
 Both store and Svelte render component.
 
-Work in progres...
+Work in progress...
 
 ## Install
 ```shell

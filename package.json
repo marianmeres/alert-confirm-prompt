@@ -1,5 +1,5 @@
 {
-	"name": "alert-confirm-prompt",
+	"name": "@marianmeres/alert-confirm-prompt",
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite dev",
