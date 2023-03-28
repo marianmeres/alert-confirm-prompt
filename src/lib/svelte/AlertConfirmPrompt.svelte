@@ -163,13 +163,14 @@
 		--box_filter: none; // drop-shadow(2px 2px 1px rgb(0 0 0 / .3));
 		--box_border: 2px solid rgba(0, 0, 0, 0.3);
 		--box_bg: white;
-		--box_color: inherit;
+		--box_color: black;
 		--box_bg_alert: var(--box_bg);
 		--box_bg_confirm: var(--box_bg);
 		--box_bg_prompt: var(--box_bg);
 
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
 		--input_bg: white;
+		--input_color: black;
 		--input_bg_hover: rgba(0, 0, 0, 0.05);
 		--input_border_radius: 0.3rem;
 		--input_padding: 0.15rem 0.5rem;
@@ -248,6 +249,7 @@
 				width: 100%;
 				border: var(--input_border);
 				background: var(--input_bg);
+				color: var(--input_color);
 				border-radius: var(--input_border_radius);
 				padding: var(--input_padding);
 				&:hover,
