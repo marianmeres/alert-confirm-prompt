@@ -15,10 +15,10 @@
 </svelte:head>
 
 <div style="padding: 1rem;">
-	<button on:click={() => acp.alert({ title: 'foo' })}>alert</button>
+	<button on:click={() => acp.alert('foo')}>alert</button>
 	<button
 		on:click={() => {
-			acp.alert({ title: `This is alert. You will need to confirm shortly.` });
+			acp.alert(`This is alert. You will need to confirm shortly.`);
 			acp.confirm(
 				async () => {
 					await sleep(3000);

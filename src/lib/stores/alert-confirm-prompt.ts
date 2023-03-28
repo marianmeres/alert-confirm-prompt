@@ -51,14 +51,16 @@ export const createAlertConfirmPromptStore = () => {
 		close: shift,
 		// sugar below
 		//
-		alert: (o?: Partial<Dialog>) =>
+		alert: (o?: Partial<Dialog> | string) => {
+			if (typeof o === 'string') o = { title: o };
 			push({
 				onOk: shift,
 				labelOk,
 				title: 'Alert',
-				...o,
+				...(o || {}),
 				type: Type.ALERT,
-			}),
+			});
+		},
 		//
 		confirm: (onOk: Function, o?: Partial<Dialog>) =>
 			push({
