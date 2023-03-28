@@ -48,6 +48,7 @@
 	{acp}
 	themeVars={{
 		// box_filter: 'drop-shadow(2px 2px 1px rgb(0 0 0 / .3))',
+		backdrop_bg: 'rgba(0, 0, 0, 0.5)',
 		button_bg_ok: '#dc2626',
 		button_bg_ok_hover: '#ef4444',
 		button_color_ok: 'white',

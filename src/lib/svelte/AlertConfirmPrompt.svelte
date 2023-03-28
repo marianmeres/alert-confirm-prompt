@@ -107,7 +107,7 @@
 			{#if isPending}
 				<div class="spinner rotating-cw"><Spinner /></div>
 			{/if}
-			<div class="title"><strong>{dialog.title}</strong></div>
+			<div class="title"><strong>{@html dialog.title}</strong></div>
 			{#if dialog.content}
 				<div class="content">{@html dialog.content}</div>
 			{/if}
