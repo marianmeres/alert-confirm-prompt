@@ -154,9 +154,9 @@
 
 <style lang="scss">
 	// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
-	::backdrop {
-		--backdrop_bg: rgba(0, 0, 0, 0.2);
-	}
+	//:global(dialog::backdrop) {
+	//	--backdrop_bg: rgba(0, 0, 0, 0.2);
+	//}
 	dialog.theme-default {
 		--box_width: 300px;
 		--box_border_radius: 0.5rem;
@@ -201,10 +201,6 @@
 		border-radius: var(--box_border_radius);
 		filter: var(--box_filter);
 		color: var(--box_color);
-
-		&::backdrop {
-			background: var(--backdrop_bg);
-		}
 
 		&.is-pending {
 			opacity: 0.75;
@@ -320,9 +316,9 @@
 		}
 
 		&[data-type='alert'] {
-			&::backdrop {
-				background: var(--backdrop_bg_alert, var(--backdrop_bg));
-			}
+			//&::backdrop {
+			//	background: var(--backdrop_bg_alert, var(--backdrop_bg));
+			//}
 			background: var(--box_bg_alert);
 			border: var(--box_border_alert, var(--box_border));
 			border-radius: var(--box_border_radius_alert, var(--box_border_radius));
@@ -351,9 +347,9 @@
 		}
 
 		&[data-type='confirm'] {
-			&::backdrop {
-				background: var(--backdrop_bg_confirm, var(--backdrop_bg));
-			}
+			//&::backdrop {
+			//	background: var(--backdrop_bg_confirm, var(--backdrop_bg));
+			//}
 			background: var(--box_bg_confirm);
 			border: var(--box_border_confirm, var(--box_border));
 			border-radius: var(--box_border_radius_confirm, var(--box_border_radius));
@@ -382,9 +378,9 @@
 		}
 
 		&[data-type='prompt'] {
-			&::backdrop {
-				background: var(--backdrop_bg_prompt, var(--backdrop_bg));
-			}
+			//&::backdrop {
+			//	background: var(--backdrop_bg_prompt, var(--backdrop_bg));
+			//}
 			background: var(--box_bg_prompt);
 			border: var(--box_border_prompt, var(--box_border));
 			border-radius: var(--box_border_radius_prompt, var(--box_border_radius));
