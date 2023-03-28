@@ -23,11 +23,9 @@ export const createAlertConfirmPromptStore = () => {
 	const _stack = createStore<Dialog[]>([]);
 
 	const push = (o: Dialog) => {
-		// optional onOk alias for alerts
-		if (o.type === Type.ALERT) {
-			!isFn(o.onOk) && (o.onOk = shift);
+		if (o.type === Type.ALERT && !isFn(o.onOk)) {
+			o.onOk = shift;
 		}
-
 		_stack.update((old) => [...old, o]);
 	};
 

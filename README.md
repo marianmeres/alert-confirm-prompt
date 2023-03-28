@@ -12,7 +12,7 @@ $ npm i @marianmeres/alert-confirm-prompt
 
 ## Example
 
-```sveltehtml
+```html
 <script>
     import { createAlertConfirmPromptStore } from "@marianmeres/alert-confirm-prompt";
     import AlertConfirmPrompt from "@marianmeres/alert-confirm-prompt/AlertConfirmPrompt.svelte";

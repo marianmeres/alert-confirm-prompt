@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 	import { createClog } from '@marianmeres/clog';
 	import { Type } from '$lib/stores/alert-confirm-prompt';
 	import Spinner from '$lib/svelte/Spinner.svelte';
@@ -17,11 +17,16 @@
 	$: dialog = $acp[0];
 
 	let _dialogEl;
+	let _buttonOkEl;
+	let _buttonCancelEl;
+	let _inputEl;
+	let focusable;
+
 	let value = null;
 	let isPending = false;
 
 	$: if (dialog?.type === Type.PROMPT) {
-		value ||= dialog.value;
+		if (value === null) value = dialog.value;
 	} else {
 		value = null;
 	}
@@ -35,9 +40,29 @@
 		_dialogEl.close('cleanup');
 	}
 
+	afterUpdate(() => {
+		focusable = [_buttonOkEl, _buttonCancelEl, _inputEl].filter(Boolean);
+		// is this ok?
+		if (!_inputEl) {
+			_buttonCancelEl ? _buttonCancelEl.focus() : _buttonOkEl?.focus();
+		}
+	});
+
 	const onKeyDown = (e) => {
+		if (!dialog) return;
+
 		e.stopPropagation();
-		if (e.key === 'Escape' && !isPending) return acp.close();
+		if (e.key === 'Escape' && !isPending) {
+			return acp.close();
+		}
+
+		if (e.key === 'Tab') {
+			e.preventDefault();
+			const focused = document.activeElement;
+			const idx = focusable.indexOf(focused);
+			const next = focusable[idx + 1] || focusable[0];
+			return next.focus();
+		}
 	};
 
 	onMount(() => {
@@ -57,8 +82,7 @@
 		return () => document.removeEventListener('keydown', onKeyDown, true);
 	});
 
-	const focusOk = (el) => dialog.type === Type.ALERT && el.focus();
-	const focusCancel = (el) => dialog.type !== Type.ALERT && el.focus();
+	const select = (el) => el.select();
 
 	$: cssVars = Object.entries(themeVars || {})
 		.reduce((m, [k, v]) => {
@@ -67,7 +91,7 @@
 		}, [])
 		.join(';');
 
-	$: clog($acp);
+	// $: clog($acp);
 </script>
 
 <dialog
@@ -78,6 +102,7 @@
 	class:is-pending={isPending}
 >
 	{#if dialog}
+		<!--since we're not using the native form submit, the <form> is not necessary-->
 		<form method="dialog" class:is-pending={isPending}>
 			{#if isPending}
 				<div class="spinner rotating-cw"><Spinner /></div>
@@ -88,7 +113,7 @@
 			{/if}
 			{#if dialog.type === Type.PROMPT}
 				<div class="inputbox">
-					<input type="text" bind:value />
+					<input type="text" use:select bind:value bind:this={_inputEl} />
 				</div>
 			{/if}
 			<menu>
@@ -96,8 +121,8 @@
 					<button
 						type="submit"
 						value="OK"
-						use:focusOk
 						data-type="ok"
+						bind:this={_buttonOkEl}
 						on:click|preventDefault={async () => {
 							isPending = true;
 							await Promise.resolve(dialog.onOk(value));
@@ -114,8 +139,8 @@
 						<button
 							on:click={acp.close}
 							type="reset"
-							use:focusCancel
 							data-type="cancel"
+							bind:this={_buttonCancelEl}
 							disabled={isPending}
 						>
 							{@html dialog.labelCancel}
@@ -138,6 +163,7 @@
 		--box_filter: none; // drop-shadow(2px 2px 1px rgb(0 0 0 / .3));
 		--box_border: 2px solid rgba(0, 0, 0, 0.3);
 		--box_bg: white;
+		--box_color: inherit;
 		--box_bg_alert: var(--box_bg);
 		--box_bg_confirm: var(--box_bg);
 		--box_bg_prompt: var(--box_bg);
@@ -146,7 +172,7 @@
 		--input_bg: white;
 		--input_bg_hover: rgba(0, 0, 0, 0.05);
 		--input_border_radius: 0.3rem;
-		--input_padding: 0.15rem 0.3rem;
+		--input_padding: 0.15rem 0.5rem;
 
 		--buttons_space_between: 0.5rem;
 		--button_border: 1px solid transparent;
@@ -154,11 +180,18 @@
 		--button_font_size: 0.9rem;
 		--button_bg: rgba(0, 0, 0, 0.1);
 		--button_bg_hover: rgba(0, 0, 0, 0.15);
+		--button_color: var(--box_color);
+
+		--focus_ring_color: rgba(0, 0, 0, 0.2);
+		--focus_ring_offset_width: 3px;
 
 		--button_bg_cancel: var(--button_bg);
 		--button_bg_cancel_hover: var(--button_bg_hover);
+		--button_color_cancel: var(--button_color);
+
 		--button_bg_ok: var(--button_bg);
 		--button_bg_ok_hover: var(--button_bg_hover);
+		--button_color_ok: var(--button_color);
 
 		width: var(--box_width);
 
@@ -166,6 +199,7 @@
 		border: var(--box_border);
 		border-radius: var(--box_border_radius);
 		filter: var(--box_filter);
+		color: var(--box_color);
 
 		&::backdrop {
 			background: var(--backdrop_bg);
@@ -189,8 +223,6 @@
 			display: flex;
 			justify-items: center;
 			align-items: center;
-			margin: 0;
-			padding: 0;
 			pointer-events: none;
 			opacity: 0.5;
 		}
@@ -223,6 +255,9 @@
 					background: var(--input_bg_hover);
 					outline: none;
 				}
+				&:focus {
+					box-shadow: 0 0 0 var(--focus_ring_offset_width) var(--focus_ring_color);
+				}
 			}
 		}
 
@@ -245,6 +280,7 @@
 				border: var(--button_border);
 				border-radius: var(--button_border_radius);
 				background: var(--button_bg);
+				color: var(--button_color);
 				margin: 0;
 				padding: 0.3rem;
 				line-height: inherit;
@@ -254,6 +290,9 @@
 					background: var(--button_bg_hover);
 					outline: none;
 				}
+				&:focus {
+					box-shadow: 0 0 0 var(--focus_ring_offset_width) var(--focus_ring_color);
+				}
 
 				&[disabled] {
 					cursor: not-allowed;
@@ -261,6 +300,7 @@
 
 				&[data-type='ok'] {
 					background: var(--button_bg_ok);
+					color: var(--button_color_ok);
 					&:hover,
 					&:focus {
 						background: var(--button_bg_hover);
@@ -268,6 +308,7 @@
 				}
 				&[data-type='cancel'] {
 					background: var(--button_bg_cancel);
+					color: var(--button_color_cancel);
 					&:hover,
 					&:focus {
 						background: var(--button_bg_hover);
