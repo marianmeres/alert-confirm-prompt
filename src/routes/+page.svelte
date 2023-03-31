@@ -59,7 +59,7 @@
 	<h1 style="font-size: 1rem;">
 		<a href="https://github.com/marianmeres/alert-confirm-prompt"
 			>@marianmeres/alert-confirm-prompt</a
-		> example <small style="opacity: .5">(v{data.VERSION})</small>
+		> example <small style="opacity: .33">(v{data.VERSION})</small>
 	</h1>
 	<hr />
 	<button on:click={() => acp.alert('Alert has only one OK button!')}>alert</button>
