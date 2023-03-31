@@ -272,7 +272,7 @@
 			li {
 				list-style: none;
 				display: block;
-				&:last-of-type {
+				&:nth-of-type(2){
 					margin-top: var(--buttons_space_between_y);
 					margin-left: var(--buttons_space_between_x);
 				}
