@@ -77,5 +77,5 @@ acp.close(); // alias to shift
 acp.reset(stack: Dialog[] = []);
 
 // store api
-acp.subscribe();
+acp.subscribe((stack: Dialog[]) => { /*...*/ });
 ```
