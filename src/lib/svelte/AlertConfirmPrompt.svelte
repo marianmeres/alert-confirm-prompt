@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { afterUpdate, onMount } from 'svelte';
-	import { createClog } from '@marianmeres/clog';
 	import { Type } from '$lib/stores/alert-confirm-prompt';
-
-	const clog = createClog('AlertConfirmPrompt');
 
 	export let acp;
 
