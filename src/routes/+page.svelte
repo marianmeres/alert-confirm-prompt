@@ -19,6 +19,7 @@
 			button_color_ok: 'white',
 			button_color_ok_hover: '#ffc',
 			buttons_justify: 'center',
+			box_filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
 		},
 		theme2: {
 			box_border_radius: '0',
