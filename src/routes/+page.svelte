@@ -22,17 +22,21 @@
 			box_filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
 		},
 		theme2: {
+			box_width: '250px',
+			box_bg: '#d9f99d',
 			box_border_radius: '0',
-			box_border: '3px solid black',
-			input_border_radius: '0',
+			box_border_width: '0 5px 5px 0',
 			button_border_radius: '0',
-			button_border: '2px solid black',
-			box_bg: 'paleturquoise',
+
+			button_border_color: '#65a30d',
+			button_border_width: '0 2px 2px 0',
 			button_bg_ok: 'black',
 			button_bg_ok_hover: 'black',
 			button_color_ok: 'white',
 			button_color_ok_hover: 'silver',
+
 			focus_ring_offset_width: '0',
+			input_border_radius: '0',
 			input_border: '2px solid black',
 
 			buttons_space_between_x: '0',
@@ -41,8 +45,8 @@
 			buttons_display: 'flex',
 			buttons_flex_direction: 'column',
 
-			spinner_bg: '#4b008266',
-			spinner_color: 'yellow',
+			spinner_bg: '#ef444499',
+			spinner_color: '#fed7aa',
 		},
 	};
 
@@ -62,18 +66,18 @@
 		> example <small style="opacity: .33">(v{data.VERSION})</small>
 	</h1>
 	<hr />
-	<button on:click={() => acp.alert('Alert has only one OK button!')}>alert</button>
+	<button on:click={() => acp.alert('Alert has only one OK button...')}>alert</button>
 	<button
 		on:click={() => {
 			acp.alert({
 				title: 'This is another alert.',
-				content: `And there is a confirm waiting for you.`,
+				content: `And there is a confirm waiting for you already.`,
 			});
 			acp.confirm(
 				async () => {
 					await sleep(3000);
 					acp.close();
-					acp.alert({ title: `Wake up!` });
+					acp.alert({ title: `Good morning!` });
 				},
 				{
 					title: 'Are you sure?',

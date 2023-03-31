@@ -155,11 +155,14 @@
 <style lang="scss">
 	dialog.theme-default {
 		--box_width: 400px;
-		--box_border_radius: 3px;
 		--box_filter: none; // drop-shadow(2px 2px 1px rgb(0 0 0 / .3));
-		--box_border: 0px solid rgba(0, 0, 0, 0.3);
 		--box_bg: white;
 		--box_color: black;
+
+		--box_border_radius: 3px;
+		--box_border_style: solid;
+		--box_border_color: rgba(0, 0, 0, .3);
+		--box_border_width: 0;
 
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
 		--input_bg: white;
@@ -177,8 +180,12 @@
 		--buttons_display: flex;
 		--buttons_flex_direction: row;
 
-		--button_border: 1px solid transparent;
 		--button_border_radius: 3px;
+		--button_border_style: solid;
+		--button_border_color: rgba(0, 0, 0, .3);
+		--button_border_width: 0px;
+		//--button_border: 1px solid transparent;
+		//--button_border_radius: 3px;
 		--button_font_size: 0.9rem;
 		--button_padding: 0.15rem 1rem;
 
@@ -205,7 +212,9 @@
 
 		width: var(--box_width);
 		background: var(--box_bg);
-		border: var(--box_border);
+		border-style: var(--box_border_style);
+		border-color: var(--box_border_color);
+		border-width: var(--box_border_width);
 		border-radius: var(--box_border_radius);
 		filter: var(--box_filter);
 		color: var(--box_color);
@@ -285,8 +294,11 @@
 				width: 100%;
 				margin: 0;
 				line-height: inherit;
-				border: var(--button_border);
 				border-radius: var(--button_border_radius);
+				border-style: var(--button_border_style);
+				border-color: var(--button_border_color);
+				border-width: var(--button_border_width);
+
 				background: var(--button_bg);
 				color: var(--button_color);
 				padding: var(--button_padding);
