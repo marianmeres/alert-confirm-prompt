@@ -1,6 +1,6 @@
 {
 	"name": "@marianmeres/alert-confirm-prompt",
-	"version": "1.4.2",
+	"version": "1.4.3",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
