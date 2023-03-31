@@ -167,7 +167,7 @@
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
 		--input_bg: white;
 		--input_color: black;
-		--input_bg_hover: rgba(0, 0, 0, 0.05);
+		--input_bg_hover: white;
 		--input_border_radius: 3px;
 		--input_padding: 0.15rem 0.5rem;
 
