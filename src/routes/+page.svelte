@@ -18,6 +18,7 @@
 			button_bg_ok_hover: '#ef4444',
 			button_color_ok: 'white',
 			button_color_ok_hover: '#ffc',
+			buttons_justify: 'center',
 		},
 		theme2: {
 			box_border_radius: '0',
