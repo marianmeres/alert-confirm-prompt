@@ -1,9 +1,10 @@
 # @marianmeres/alert-confirm-prompt
 
-Just like `alert/confirm/prompt(...)` but with custom styling and async support.
-Both store and Svelte render component.
+Just like `alert/confirm/prompt(...)` but with better control, custom styling and async support.
 
-Work in progress...
+Both store and Svelte render component. 
+
+See example at: [acp.meres.sk](https://acp.meres.sk/)
 
 ## Install
 ```shell
@@ -20,7 +21,17 @@ $ npm i @marianmeres/alert-confirm-prompt
     const acp = createAlertConfirmPromptStore();
 </script>
 
-<button on:click={() => acp.alert({ title: 'Hey ho!' })}>Alert</button>
+<button on:click={() => acp.alert('Hey ho!')}>Alert</button>
 
-<AlertConfirmPrompt {acp} />
+<AlertConfirmPrompt 
+    {acp}
+    themeVars={{
+        // see source for theme options
+    }}
+/>
 ```
+
+## Custom theming
+
+See [this](https://github.com/marianmeres/alert-confirm-prompt/blob/master/src/lib/svelte/AlertConfirmPrompt.svelte) 
+or [this](https://github.com/marianmeres/alert-confirm-prompt/blob/master/src/routes/%2Bpage.svelte).
