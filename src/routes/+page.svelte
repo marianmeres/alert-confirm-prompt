@@ -3,6 +3,8 @@
 	import AlertConfirmPrompt from '$lib/svelte/AlertConfirmPrompt.svelte';
 	import { createAlertConfirmPromptStore } from '../lib/index.js';
 
+	export let data;
+
 	const clog = createClog('page');
 	const acp = createAlertConfirmPromptStore();
 
@@ -55,7 +57,7 @@
 	<h1 style="font-size: 1rem;">
 		<a href="https://github.com/marianmeres/alert-confirm-prompt"
 			>@marianmeres/alert-confirm-prompt</a
-		> example
+		> example <small style="opacity: .5">(v{data.VERSION})</small>
 	</h1>
 	<hr />
 	<button on:click={() => acp.alert('Alert has only one OK button!')}>alert</button>
