@@ -31,7 +31,7 @@
 		!_dialogEl.hasAttribute('open') && _dialogEl.showModal();
 	}
 
-	// make sure to close if no dialog in stack
+	// make sure to close if no left dialog in stack
 	$: if (!dialog && _dialogEl) {
 		_dialogEl.close('cleanup');
 	}
@@ -63,7 +63,7 @@
 
 	onMount(() => {
 		_dialogEl.addEventListener('close', async () => {
-			// esc pressed (educated guess, not standard)
+			// esc pressed (kind of guess, not standard)
 			if (_dialogEl.returnValue === '') {
 				acp.shift();
 			}
@@ -73,7 +73,7 @@
 			event.preventDefault();
 		});
 
-		// but catch manually so we can do proper cleanup
+		//
 		document.addEventListener('keydown', onKeyDown, true);
 		return () => document.removeEventListener('keydown', onKeyDown, true);
 	});
