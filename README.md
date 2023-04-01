@@ -1,6 +1,11 @@
 # @marianmeres/alert-confirm-prompt
 
-Just like `alert/confirm/prompt(...)` but with better control, custom styling and async support.
+Just 
+[like](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) 
+[native](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm) 
+[counterparts](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)
+but with consistent and customizable look across browsers, overall better control 
+and async support.
 
 Both store and Svelte render component.
 
@@ -22,13 +27,13 @@ Live preview [acp.meres.sk](https://acp.meres.sk/)
 
 <button on:click={() => acp.alert("Let's go!")}>Hey ho</button>
 
+<!--Place this somewhere in the top-most layout-->
 <AlertConfirmPrompt {acp} themeVars={{ /*see source for theme options*/ }} />
 ```
 
 ## Custom theming
 
 See [AlertConfirmPrompt.svelte](https://github.com/marianmeres/alert-confirm-prompt/blob/master/src/lib/svelte/AlertConfirmPrompt.svelte)
-or [+page.svelte](https://github.com/marianmeres/alert-confirm-prompt/blob/master/src/routes/%2Bpage.svelte)
 for the complete list of supported css vars.
 
 
@@ -64,10 +69,9 @@ const acp = createAlertConfirmPromptStore();
 
 // sugar api
 
-// string as arg will be considered as title
+// Note, that it is the responsibility of the `onOk` and `onCancel` (if present) 
+// handler to close the dialog (e.g. by calling acp.close()).
 acp.alert(o?: Partial<Dialog> | string): void;
-// Note, that it is the responsibility of the `onOk` (and `onCancel`, but NOT `onEscape`) 
-// handler to close the dialog (e.g. by calling acp.close())
 acp.confirm(onOk: Function, o?: Partial<Dialog>): void;
 acp.prompt(onOk: Function, o?: Partial<Dialog>): void;
 
@@ -85,16 +89,23 @@ acp.subscribe((stack: Dialog[]) => { /*...*/ });
 ```
 
 ## `window.alert/confirm/prompt` monkey patching
-This is kind of experimental, and by definition will not work exactly equal, but you can
-do something like below.
+This by definition will not work exactly equal, but it can be used as a drop-in replacement
+with minimum effort.
 
-Note, that all patched functions return promises, so you must await until they resolve
-(this is to simulate the native javascript execution pause).
+The main difference is that all patch functions return promises, so you must await until 
+they resolve (this is to simulate the native javascript execution pause).
 
 ```javascript
+import { 
+    createAlertConfirmPromptStore, 
+    createWindowAlertLike, 
+    createWindowConfirmLike,
+    createWindowPromptLike
+} from "@marianmeres/alert-confirm-prompt";
+
 const acp = createAlertConfirmPromptStore();
 
-//
+// just to make sure it's client side only (if sveltekit)
 onMount(() => {
     window.alert = createWindowAlertLike(acp);
     window.confirm = createWindowConfirmLike(acp);
@@ -102,5 +113,7 @@ onMount(() => {
 });
 
 // and later call
-console.log(await prompt("What's your name?", 'Bond, James Bond'));
+if (await confirm('Show introduction?')) {
+    alert('Hello ' + (await prompt("What's your name?", 'Bond, James Bond')));
+}
 ```
