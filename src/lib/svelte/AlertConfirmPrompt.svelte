@@ -2,6 +2,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { Type } from '$lib/stores/alert-confirm-prompt';
 
+	// instance created by createAlertConfirmPromptStore()
 	export let acp;
 
 	//
@@ -27,18 +28,15 @@
 		value = null;
 	}
 
-	$: if (dialog && _dialogEl) {
-		!_dialogEl.hasAttribute('open') && _dialogEl.showModal();
-	}
+	// point here is, that we're manipulating the store stack only, not the dom el directly...
+	// in other words the open/close works just by watching the stack
+	$: if (dialog && _dialogEl) !_dialogEl.hasAttribute('open') && _dialogEl.showModal();
+	$: if (!dialog && _dialogEl) _dialogEl.close('cleanup');
 
-	// make sure to close if no left dialog in stack
-	$: if (!dialog && _dialogEl) {
-		_dialogEl.close('cleanup');
-	}
-
+	//
 	afterUpdate(() => {
 		focusable = [_inputEl, _buttonCancelEl, _buttonOkEl].filter(Boolean);
-		// is this ok?
+		// is this 100% ok?
 		if (!_inputEl) {
 			_buttonCancelEl ? _buttonCancelEl.focus() : _buttonOkEl?.focus();
 		}
@@ -49,7 +47,7 @@
 
 		e.stopPropagation();
 		if (e.key === 'Escape' && !isPending) {
-			return acp.close();
+			return acp.escape();
 		}
 
 		if (e.key === 'Tab') {
@@ -63,15 +61,13 @@
 
 	onMount(() => {
 		_dialogEl.addEventListener('close', async () => {
-			// esc pressed (kind of guess, not standard)
+			// not relevant anymore i think (after stopping using the form.submit approach)
 			if (_dialogEl.returnValue === '') {
-				acp.shift();
+				acp.escape();
 			}
 		});
 		// prevent built in escape
-		_dialogEl.addEventListener('cancel', (event) => {
-			event.preventDefault();
-		});
+		_dialogEl.addEventListener('cancel', (event) => event.preventDefault());
 
 		//
 		document.addEventListener('keydown', onKeyDown, true);
@@ -115,7 +111,12 @@
 				{#if dialog.type !== Type.ALERT}
 					<li>
 						<button
-							on:click={acp.close}
+							on:click|preventDefault={async () => {
+								isPending = true;
+								await Promise.resolve(dialog.onCancel(false));
+								isPending = false;
+								value = null;
+							}}
 							type="reset"
 							data-type="cancel"
 							bind:this={_buttonCancelEl}
@@ -133,7 +134,9 @@
 						bind:this={_buttonOkEl}
 						on:click|preventDefault={async () => {
 							isPending = true;
-							await Promise.resolve(dialog.onOk(value));
+							await Promise.resolve(
+								dialog.onOk(dialog.type === Type.PROMPT ? value : true)
+							);
 							isPending = false;
 							value = null;
 						}}
@@ -161,7 +164,7 @@
 
 		--box_border_radius: 3px;
 		--box_border_style: solid;
-		--box_border_color: rgba(0, 0, 0, .3);
+		--box_border_color: rgba(0, 0, 0, 0.3);
 		--box_border_width: 0;
 
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
@@ -182,7 +185,7 @@
 
 		--button_border_radius: 3px;
 		--button_border_style: solid;
-		--button_border_color: rgba(0, 0, 0, .3);
+		--button_border_color: rgba(0, 0, 0, 0.3);
 		--button_border_width: 0px;
 		//--button_border: 1px solid transparent;
 		//--button_border_radius: 3px;
@@ -283,7 +286,7 @@
 			li {
 				list-style: none;
 				display: block;
-				&:nth-of-type(2){
+				&:nth-of-type(2) {
 					margin-top: var(--buttons_space_between_y);
 					margin-left: var(--buttons_space_between_x);
 				}

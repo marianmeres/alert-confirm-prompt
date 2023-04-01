@@ -2,6 +2,12 @@
 	import { createClog } from '@marianmeres/clog';
 	import AlertConfirmPrompt from '$lib/svelte/AlertConfirmPrompt.svelte';
 	import { createAlertConfirmPromptStore } from '../lib/index.js';
+	import { onMount } from 'svelte';
+	import {
+		createWindowAlertLike,
+		createWindowConfirmLike,
+		createWindowPromptLike,
+	} from '../lib/stores/alert-confirm-prompt.js';
 
 	export let data;
 
@@ -53,6 +59,12 @@
 	let theme = 'default';
 
 	$: clog(theme, themes[theme]);
+
+	onMount(() => {
+		window.alert = createWindowAlertLike(acp);
+		window.confirm = createWindowConfirmLike(acp);
+		window.prompt = createWindowPromptLike(acp);
+	});
 </script>
 
 <svelte:head>
@@ -63,7 +75,8 @@
 	<h1 style="font-size: 1rem;">
 		<a href="https://github.com/marianmeres/alert-confirm-prompt"
 			>@marianmeres/alert-confirm-prompt</a
-		> example <small style="opacity: .33">(v{data.VERSION})</small>
+		>
+		example <small style="opacity: .33">(v{data.VERSION})</small>
 	</h1>
 	<hr />
 	<button on:click={() => acp.alert('Alert has only one OK button...')}>alert</button>
@@ -111,12 +124,33 @@
 	<pre style="font-size: .8rem; padding: 1rem;">dialog::backdrop {`{
     background: rgba(0, 0, 0, 0.5);
 }`}</pre>
+	<hr />
+	Patched:
+	<button
+		on:click={async () => {
+			clog('alert', await alert('This one was called as window.alert'));
+		}}><code>window.alert</code></button
+	>
+	<button
+		on:click={async () => {
+			clog('confirm', await confirm('This one was called as window.confirm'));
+		}}><code>window.confirm</code></button
+	>
+	<button
+		on:click={async () => {
+			clog(
+				'prompt',
+				await prompt('This one was called as window.prompt', 'Use at your own risk')
+			);
+		}}><code>window.prompt</code></button
+	>
 </div>
 
 <AlertConfirmPrompt {acp} themeVars={themes[theme]} />
 
 <style lang="scss">
-	:global(dialog::backdrop) {
-		// background: rgba(0, 0, 0, 0.5);
-	}
+	// keeping the default here, but it can be styled if needed
+	//:global(dialog::backdrop) {
+	//	background: rgba(0, 0, 0, 0.5);
+	//}
 </style>

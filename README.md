@@ -43,7 +43,7 @@ interface Dialog extends Record<string, any> {
     // For type prompt it receives the input value as a first argument.
     // Can return promise in which case the UI will be in `isPending` state until
     // the promise is resolved.
-    onOk: Function;
+    onOk?: Function;
     
     //
     type: Type.ALERT | Type.CONFIRM | Type.PROMPT;
@@ -54,6 +54,10 @@ interface Dialog extends Record<string, any> {
     
     // initial value for prompt
     value?: any;
+    
+    // if you need to destinguish cancel and/or escape, use these handlers:
+    onCancel?: Function;
+    onEscape?: Function;
 }
 
 const acp = createAlertConfirmPromptStore();
@@ -62,8 +66,8 @@ const acp = createAlertConfirmPromptStore();
 
 // string as arg will be considered as title
 acp.alert(o?: Partial<Dialog> | string): void;
-// IMPORTANT: it is the responsibility of the `onOk` handler to close the 
-// dialog (e.g. by calling acp.close())
+// Note, that it is the responsibility of the `onOk` (and `onCancel`, but NOT `onEscape`) 
+// handler to close the dialog (e.g. by calling acp.close())
 acp.confirm(onOk: Function, o?: Partial<Dialog>): void;
 acp.prompt(onOk: Function, o?: Partial<Dialog>): void;
 
@@ -78,4 +82,25 @@ acp.reset(stack: Dialog[] = []);
 
 // store api
 acp.subscribe((stack: Dialog[]) => { /*...*/ });
+```
+
+## `window.alert/confirm/prompt` monkey patching
+This is kind of experimental, and by definition will not work exactly equal, but you can
+do something like below.
+
+Note, that all patched functions return promises, so you must await until they resolve
+(this is to simulate the native javascript execution pause).
+
+```javascript
+const acp = createAlertConfirmPromptStore();
+
+//
+onMount(() => {
+    window.alert = createWindowAlertLike(acp);
+    window.confirm = createWindowConfirmLike(acp);
+    window.prompt = createWindowPromptLike(acp);
+});
+
+// and later call
+console.log(await prompt("What's your name?", 'Bond, James Bond'));
 ```
