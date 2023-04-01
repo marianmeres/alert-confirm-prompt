@@ -60,7 +60,7 @@ interface Dialog extends Record<string, any> {
     // initial value for prompt
     value?: any;
     
-    // if you need to destinguish cancel and/or escape, use these handlers:
+    // if you need to distinguish cancel and/or escape, use these handlers:
     onCancel?: Function;
     onEscape?: Function;
 }
