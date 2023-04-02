@@ -79,9 +79,11 @@
 		example <small style="opacity: .33">(v{data.VERSION})</small>
 	</h1>
 	<hr />
-	<button on:click={() => {
-		acp.alert('This is basic alert');
-	}}>alert</button>
+	<button
+		on:click={() => {
+			acp.alert('This is basic alert');
+		}}>alert</button
+	>
 	<button
 		on:click={() => {
 			acp.alert({
@@ -102,19 +104,25 @@
 			);
 		}}>alert and confirm</button
 	>
-	<button on:click={() => acp.confirm(() => {
-		acp.close();
-		acp.alert('You clicked OK');
-	}, {
-		onCancel: () => {
-			acp.close();
-			acp.alert('You clicked Cancel');
-		},
-		onEscape: () => {
-			// acp.close in NOT expected here (as opposed to `onOk` and `onCancel`)
-			acp.alert('You hit Escape');
-		}
-	})}>confirm</button>
+	<button
+		on:click={() =>
+			acp.confirm(
+				() => {
+					acp.close();
+					acp.alert('You clicked OK');
+				},
+				{
+					onCancel: () => {
+						acp.close();
+						acp.alert('You clicked Cancel');
+					},
+					onEscape: () => {
+						// acp.close in NOT expected here (as opposed to `onOk` and `onCancel`)
+						acp.alert('You hit Escape');
+					},
+				}
+			)}>confirm</button
+	>
 	<button
 		on:click={() =>
 			acp.prompt(
