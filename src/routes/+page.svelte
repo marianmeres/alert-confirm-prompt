@@ -139,25 +139,18 @@
     background: rgba(0, 0, 0, 0.5);
 }`}</pre>
 	<hr />
-	Patched:
 	<button
 		on:click={async () => {
-			clog('alert', await alert('This one was called as window.alert'));
-		}}><code>window.alert</code></button
+			if (await confirm('Continue?')) {
+				alert('Hello "' + (await prompt("What's your name?", 'Foo Bar')) + '"');
+			}
+		}}
 	>
-	<button
-		on:click={async () => {
-			clog('confirm', await confirm('This one was called as window.confirm'));
-		}}><code>window.confirm</code></button
-	>
-	<button
-		on:click={async () => {
-			clog(
-				'prompt',
-				await prompt('This one was called as window.prompt', 'Use at your own risk')
-			);
-		}}><code>window.prompt</code></button
-	>
+		Patched <code>window.alert/confirm/prompt</code>
+	</button>
+	<pre style="font-size: .8rem; padding: 1rem;">if (await confirm('Continue?')) {`{`}
+    alert('Hello "' + (await prompt("What's your name?", 'Foo Bar')) + '"');
+{`}`}</pre>
 </div>
 
 <AlertConfirmPrompt {acp} themeVars={themes[theme]} />

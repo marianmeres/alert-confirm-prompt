@@ -113,7 +113,7 @@ onMount(() => {
 });
 
 // and later call
-if (await confirm('Show introduction?')) {
-    alert('Hello ' + (await prompt("What's your name?", 'Bond, James Bond')));
+if (await confirm('Continue?')) {
+    alert('Hello "' + (await prompt("What's your name?", 'Foo Bar')) + '"');
 }
 ```
