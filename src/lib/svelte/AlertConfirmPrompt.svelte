@@ -36,10 +36,7 @@
 	//
 	afterUpdate(() => {
 		focusable = [_inputEl, _buttonCancelEl, _buttonOkEl].filter(Boolean);
-		// is this 100% ok?
-		if (!_inputEl) {
-			_buttonCancelEl ? _buttonCancelEl.focus() : _buttonOkEl?.focus();
-		}
+		!_inputEl && _buttonOkEl && _buttonOkEl.focus();
 	});
 
 	const onKeyDown = (e) => {
