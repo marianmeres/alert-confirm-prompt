@@ -28,22 +28,37 @@
 			box_filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
 		},
 		theme2: {
-			box_width: '250px',
-			box_bg: '#d9f99d',
-			box_border_radius: '0',
-			box_border_width: '0 5px 5px 0',
-			button_border_radius: '0',
+			box_width: '300px',
+			// box_min_width: '250px',
+			// box_max_width: '640px',
+			box_bg: '#18181b',
+			box_color: '#f3f4f6',
+			box_border_radius: '7px',
+			box_border_width: '0',
+			box_filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
 
-			button_border_color: '#65a30d',
-			button_border_width: '0 2px 2px 0',
-			button_bg_ok: 'black',
-			button_bg_ok_hover: 'black',
-			button_color_ok: 'white',
-			button_color_ok_hover: 'silver',
+			title_font_size: '1.2rem',
+			content_font_size: '.9rem',
+
+			button_border_radius: '5px',
+			button_border_width: '0',
+			button_font_size: '1rem',
+			button_padding: '.5rem 1rem',
+
+			button_bg_ok: '#fcd34d',
+			button_bg_ok_hover: '#fde68a',
+			button_color_ok: '#18181b',
+			button_color_ok_hover: '#18181b',
+
+			button_bg_cancel: '#374151',
+			button_bg_cancel_hover: '#4b5563',
+			button_color_cancel: '#fcd34d',
+			button_color_cancel_hover: '#fcd34d',
 
 			focus_ring_offset_width: '0',
-			input_border_radius: '0',
-			input_border: '2px solid black',
+			input_border_radius: '5px',
+			input_border: '0',
+			input_padding: '.5rem',
 
 			buttons_space_between_x: '0',
 			buttons_space_between_y: '.5rem',
@@ -51,8 +66,8 @@
 			buttons_display: 'flex',
 			buttons_flex_direction: 'column',
 
-			spinner_bg: '#ef444499',
-			spinner_color: '#fed7aa',
+			spinner_bg: '#fde68a99',
+			spinner_color: '#18181b',
 		},
 	};
 

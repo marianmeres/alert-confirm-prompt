@@ -155,6 +155,8 @@
 <style lang="scss">
 	dialog.theme-default {
 		--box_width: 400px;
+		--box_min_width: none;
+		--box_max_width: none;
 		--box_filter: none; // drop-shadow(2px 2px 1px rgb(0 0 0 / .3));
 		--box_bg: white;
 		--box_color: black;
@@ -163,6 +165,9 @@
 		--box_border_style: solid;
 		--box_border_color: rgba(0, 0, 0, 0.3);
 		--box_border_width: 0;
+
+		--title_font_size: 1.1rem;
+		--content_font_size: 1rem;
 
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
 		--input_bg: white;
@@ -186,8 +191,8 @@
 		--button_border_width: 0px;
 		//--button_border: 1px solid transparent;
 		//--button_border_radius: 3px;
-		--button_font_size: 0.9rem;
-		--button_padding: 0.15rem 1rem;
+		--button_font_size: 1rem;
+		--button_padding: 0.25rem 1rem;
 
 		--button_bg: rgba(0, 0, 0, 0.1);
 		--button_bg_hover: rgba(0, 0, 0, 0.15);
@@ -211,6 +216,8 @@
 		--spinner_color: white;
 
 		width: var(--box_width);
+		max-width: var(--box_max_width);
+		min-width: var(--box_min_width);
 		background: var(--box_bg);
 		border-style: var(--box_border_style);
 		border-color: var(--box_border_color);
@@ -238,13 +245,14 @@
 		.title {
 			margin: 0 0 1rem 0;
 			padding: 0;
-			font-size: 1rem;
+			font-size: var(--title_font_size);
 			display: block;
 			text-align: center;
 		}
 
 		.content {
 			margin: 0 0 1rem 0;
+			font-size: var(--content_font_size);
 			text-align: center;
 			line-height: inherit;
 			max-height: 40vh;
