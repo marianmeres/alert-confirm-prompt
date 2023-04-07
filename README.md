@@ -117,3 +117,7 @@ if (await confirm('Continue?')) {
     alert('Hello "' + (await prompt("What's your name?", 'Foo Bar')) + '"');
 }
 ```
+
+## Todo
+- icon support (optional, sane defaults, custom overridable)
+- support for 3rd optional button for confirm, so there can be features like "Save", "Don't save", "Cancel"
