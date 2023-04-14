@@ -1,3 +1,6 @@
-// Reexport your entry components here
-
-export { createAlertConfirmPromptStore } from './stores/alert-confirm-prompt.js';
+export {
+	createAlertConfirmPromptStore,
+	createWindowAlertLike,
+	createWindowConfirmLike,
+	createWindowPromptLike,
+} from './stores/alert-confirm-prompt.js';
