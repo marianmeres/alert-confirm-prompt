@@ -6,11 +6,16 @@ export enum Type {
 	PROMPT = 'prompt',
 }
 
+interface RenderProps {
+	component: Function;
+	props?: any;
+}
+
 interface Dialog extends Record<string, any> {
 	type: Type.ALERT | Type.CONFIRM | Type.PROMPT;
 	title?: string;
 	onOk?: Function;
-	content?: string;
+	content?: string | RenderProps;
 	labelOk?: string;
 	labelCancel?: string;
 	value?: any;

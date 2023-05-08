@@ -8,6 +8,7 @@
 		createWindowConfirmLike,
 		createWindowPromptLike,
 	} from '../lib/stores/alert-confirm-prompt.js';
+	import CustomContent from './CustomContent.svelte';
 
 	export let data;
 
@@ -174,6 +175,18 @@
 	<pre style="font-size: .8rem; padding: 1rem;">if (await confirm('Continue?')) {`{`}
     alert('Hello "' + (await prompt("What's your name?", 'Foo Bar')) + '"');
 {`}`}</pre>
+
+	<hr />
+	<button
+		on:click={() => {
+			acp.alert({
+				title: 'Custom component',
+				content: { component: CustomContent },
+			});
+		}}
+	>
+		Custom component content
+	</button>
 </div>
 
 <AlertConfirmPrompt {acp} themeVars={themes[theme]} />

@@ -97,7 +97,18 @@
 		<form method="dialog" class:is-pending={isPending}>
 			<div class="title"><strong>{@html dialog.title}</strong></div>
 			{#if dialog.content}
-				<div class="content">{@html dialog.content}</div>
+				<div class="content">
+					{#if dialog.content?.component}
+						<svelte:component
+							this={dialog.content.component}
+							{...dialog.content?.props || {}}
+							{dialog}
+							{acp}
+						/>
+					{:else}
+						{@html dialog.content}
+					{/if}
+				</div>
 			{/if}
 			{#if dialog.type === Type.PROMPT}
 				<div class="inputbox">
