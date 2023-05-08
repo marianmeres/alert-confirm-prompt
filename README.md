@@ -53,7 +53,7 @@ interface Dialog extends Record<string, any> {
     //
     type: Type.ALERT | Type.CONFIRM | Type.PROMPT;
     title: string; // defaults to Camel cased `type`
-    content?: string; // defaults to undefined
+    content?: string | RenderProps; // defaults to undefined
     labelOk?: string; // defaults to "OK"
     labelCancel?: string; // defaults to "Cancel"
     
