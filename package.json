@@ -18,10 +18,6 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
-		},
-		"./AlertConfirmPrompt.svelte": {
-			"types": "./dist/svelte/AlertConfirmPrompt.svelte.d.ts",
-			"svelte": "./dist/svelte/AlertConfirmPrompt.svelte"
 		}
 	},
 	"files": [
