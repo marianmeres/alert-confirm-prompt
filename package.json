@@ -1,6 +1,6 @@
 {
 	"name": "@marianmeres/alert-confirm-prompt",
-	"version": "1.12.0",
+	"version": "1.11.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -24,7 +24,7 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^4.x"
+		"svelte": "^3.54.0 || ^4.0.0"
 	},
 	"devDependencies": {
 		"@marianmeres/clog": "^1.0.0",
