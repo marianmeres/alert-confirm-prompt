@@ -24,7 +24,7 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^4.x"
 	},
 	"devDependencies": {
 		"@marianmeres/clog": "^1.0.0",
