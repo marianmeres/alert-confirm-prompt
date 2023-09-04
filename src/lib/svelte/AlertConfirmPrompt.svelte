@@ -171,6 +171,7 @@
 		--box_filter: none; // drop-shadow(2px 2px 1px rgb(0 0 0 / .3));
 		--box_bg: white;
 		--box_color: black;
+		--box_padding: 1rem;
 
 		--box_border_radius: 3px;
 		--box_border_style: solid;
@@ -237,6 +238,7 @@
 		filter: var(--box_filter);
 		color: var(--box_color);
 		position: relative;
+		padding: var(--box_padding);
 
 		form {
 			inset: 0;
