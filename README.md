@@ -20,8 +20,7 @@ $ npm i @marianmeres/alert-confirm-prompt
 Live preview [acp.meres.sk](https://acp.meres.sk/)
 ```html
 <script>
-    import { createAlertConfirmPromptStore } from "@marianmeres/alert-confirm-prompt";
-    import AlertConfirmPrompt from "@marianmeres/alert-confirm-prompt/AlertConfirmPrompt.svelte";
+    import { createAlertConfirmPromptStore, AlertConfirmPrompt } from "@marianmeres/alert-confirm-prompt";
     const acp = createAlertConfirmPromptStore();
 </script>
 
@@ -89,10 +88,10 @@ acp.subscribe((stack: Dialog[]) => { /*...*/ });
 ```
 
 ## `window.alert/confirm/prompt` monkey patching
-This by definition will not work exactly equal, but it can be used as a drop-in replacement
-with minimum effort.
+Although the patched functions will not, by definition, work exactly the same, they can still 
+be used as a drop-in replacement with minimal effort.
 
-The main difference is that all patch functions return promises, so you must await until 
+The main difference is that all patched functions return promises, so you must await until 
 they resolve (this is to simulate the native javascript execution pause).
 
 ```javascript
