@@ -105,7 +105,7 @@
 			acp.alert({
 				title: 'This is another alert.',
 				content: `And there is a confirm waiting for you already.`,
-				themeVars: { button_bg_ok: 'yellow', button_bg_ok_hover: 'orange' },
+				// themeVars: { button_bg_ok: 'yellow', button_bg_ok_hover: 'orange' },
 			});
 			acp.confirm(
 				async () => {
@@ -151,7 +151,7 @@
 				},
 				{
 					value: 'hey ho',
-					themeVars: { button_bg_ok: 'yellow' },
+					// themeVars: { button_bg_ok: 'yellow' },
 				}
 			)}>prompt</button
 	>
