@@ -105,6 +105,7 @@
 			acp.alert({
 				title: 'This is another alert.',
 				content: `And there is a confirm waiting for you already.`,
+				themeVars: { button_bg_ok: 'yellow', button_bg_ok_hover: 'orange' },
 			});
 			acp.confirm(
 				async () => {
@@ -118,8 +119,10 @@
 					labelOk: 'Yawn',
 				}
 			);
-		}}>alert and confirm</button
+		}}
 	>
+		alert and confirm
+	</button>
 	<button
 		on:click={() =>
 			acp.confirm(
@@ -146,7 +149,10 @@
 					acp.close();
 					acp.alert({ title: 'You said: ' + value });
 				},
-				{ value: 'hey ho' }
+				{
+					value: 'hey ho',
+					themeVars: { button_bg_ok: 'yellow' },
+				}
 			)}>prompt</button
 	>
 	<hr />

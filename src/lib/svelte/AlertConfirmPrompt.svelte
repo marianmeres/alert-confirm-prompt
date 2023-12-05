@@ -73,12 +73,17 @@
 
 	const select = (el) => el.select();
 
-	$: cssVars = Object.entries(themeVars || {})
+	$: cssVars = Object.entries({
+		...(themeVars || {}),
+		...(dialog?.themeVars || {}),
+	})
 		.reduce((m, [k, v]) => {
-			m.push(`--${k}:${v}`);
+			m.push(`--${k}:${v};`);
 			return m;
 		}, [])
-		.join(';');
+		.join('');
+
+	$: _style = cssVars + (style || '') + (dialog?.style || '');
 
 	// https://github.com/marianmeres/icons-fns
 	// prettier-ignore
@@ -89,7 +94,7 @@
 	bind:this={_dialogEl}
 	class="theme-{theme} {cssClasses}"
 	data-type={dialog?.type}
-	style="{cssVars} {style}"
+	style={_style}
 	class:is-pending={isPending}
 >
 	{#if dialog}
