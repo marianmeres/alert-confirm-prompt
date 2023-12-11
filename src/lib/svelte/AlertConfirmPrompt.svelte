@@ -100,7 +100,7 @@
 	{#if dialog}
 		<!--since we're not using the native form submit, the <form> is not necessary-->
 		<form method="dialog" class:is-pending={isPending}>
-			<div class="title"><strong>{@html dialog.title}</strong></div>
+			<div class="title">{@html dialog.title}</div>
 			{#if dialog.content}
 				<div class="content">
 					{#if dialog.content?.component}
@@ -184,6 +184,7 @@
 		--box_border_width: 0;
 
 		--title_font_size: 1.1rem;
+		--title_font_weight: 500; // semibold
 		--content_font_size: 1rem;
 
 		--input_border: 1px solid rgba(0, 0, 0, 0.1);
@@ -264,6 +265,7 @@
 			margin: 0 0 1rem 0;
 			padding: 0;
 			font-size: var(--title_font_size);
+			font-weight: var(--title_font_weight);
 			display: block;
 			text-align: center;
 		}
