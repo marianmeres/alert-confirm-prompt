@@ -50,6 +50,6 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"@marianmeres/store": "^1.2.1"
+		"@marianmeres/store": "^1.3.0"
 	}
 }
